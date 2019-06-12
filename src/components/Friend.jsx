@@ -9,9 +9,11 @@ const Styled = styled.div`
 `;
 
 export default function Friend({ data }) {
+  if (!data) return null;
+
   return (
     <Styled>
-      {data.name} is {data.age} and her id is <span className='uuid'>{data.id}</span>
+      {data.name} is {data.age}, id <span className='uuid'>{data.id}</span>
     </Styled>
   );
 }

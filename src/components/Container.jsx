@@ -10,6 +10,7 @@ export default class Container extends React.Component {
     friends: [],
     error: null,
     loading: false,
+    friend: null,
   }
 
   inputNameRef = React.createRef();
@@ -22,9 +23,9 @@ export default class Container extends React.Component {
 
   inputAgeEditRef = React.createRef();
 
-  inputIdRef = React.createRef();
+  inputIdRefDelete = React.createRef();
 
-  inputIdRef2 = React.createRef();
+  inputIdRefExisting = React.createRef();
 
   // CRUD OPERATIONS
   getAllFriends = () => {
@@ -33,19 +34,33 @@ export default class Container extends React.Component {
   }
 
   getFriendById = () => {
-
+    axios.get(`${friendsApi}/${this.inputIdRefExisting.current.value}`)
+      .then(res => this.setState({ friend: res.data }));
   }
 
   postNewFriend = () => {
-
+    axios.post(friendsApi, {
+      name: this.inputNameRef.current.value,
+      age: this.inputAgeRef.current.value,
+    })
+      .then(this.getAllFriends);
   }
 
   deleteFriendById = () => {
-
+    const id = this.inputIdRefDelete.current.value;
+    axios.delete(`${friendsApi}/${id}`).then(this.getAllFriends);
   }
 
-  replaceFriendById = id => {
+  replaceFriendById = () => {
+    const id = this.inputIdEditRef.current.value;
+    const name = this.inputNameEditRef.current.value;
+    const age = this.inputAgeEditRef.current.value;
 
+    axios.put(`${friendsApi}/${id}`, {
+      name,
+      age,
+    })
+      .then(this.getAllFriends);
   }
 
   render() {
@@ -69,27 +84,22 @@ export default class Container extends React.Component {
       <StyledContainer>
         <StyledCrud>
           <h5>[GET] all friends</h5>
-          {
-            this.state.friends.map(fr => <Friend data={fr} />)
-          }
+          {this.state.friends.map(fr => <Friend key={fr.id} data={fr} />)}
           <button onClick={this.getAllFriends}>getAllFriends</button>
         </StyledCrud>
 
         <StyledCrud>
           <h5>[GET] existing friend by id</h5>
-          id: <input type='text' ref={this.inputIdRef2} /><br />
-          <button
-            onClick={() => this.deletePerson(this.inputIdRef.current.value)}
-          >
-            delete friend
-          </button>
+          <Friend data={this.state.friend} />
+          id: <input type='text' ref={this.inputIdRefExisting} /><br />
+          <button onClick={this.getFriendById}>getFriendById</button>
         </StyledCrud>
 
         <StyledCrud>
           <h5>[POST] a new friend</h5>
           name: <input type='text' ref={this.inputNameRef} /><br />
           age: <input type='text' ref={this.inputAgeRef} /><br />
-          <button onClick={this.postNewPerson}>postNewPerson</button>
+          <button onClick={this.postNewFriend}>postNewFriend</button>
         </StyledCrud>
 
         <StyledCrud>
@@ -102,12 +112,8 @@ export default class Container extends React.Component {
 
         <StyledCrud>
           <h5>[DELETE] existing friend by id</h5>
-          id: <input type='text' ref={this.inputIdRef} /><br />
-          <button
-            onClick={() => this.deletePerson(this.inputIdRef.current.value)}
-          >
-            delete friend
-          </button>
+          id: <input type='text' ref={this.inputIdRefDelete} /><br />
+          <button onClick={this.deleteFriendById}>delete friend</button>
         </StyledCrud>
       </StyledContainer>
     );
