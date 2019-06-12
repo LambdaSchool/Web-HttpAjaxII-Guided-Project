@@ -13,13 +13,17 @@ export default class Container extends React.Component {
   }
 
   inputNameRef = React.createRef();
+
   inputAgeRef = React.createRef();
+
   inputNameEditRef = React.createRef();
+
   inputAgeEditRef = React.createRef();
+
   inputIdRef = React.createRef();
 
   // CRUD OPERATIONS
-  getAllFriends = (id) => {
+  getAllFriends = () => {
 
   }
 
@@ -60,7 +64,7 @@ export default class Container extends React.Component {
     return (
       <StyledContainer>
         <StyledCrud>
-          <h5>[GET] a random person</h5>
+          <h5>[GET] all friends</h5>
           {
             this.state.person && (
               <>
@@ -69,11 +73,11 @@ export default class Container extends React.Component {
               </>
             )
           }
-          <button onClick={this.fetchPerson}>fetch person</button>
+          <button onClick={this.getAllFriends}>getAllFriends</button>
         </StyledCrud>
 
         <StyledCrud>
-          <h5>[GET * 2] random people</h5>
+          <h5>[GET] random people</h5>
           {
             this.state.people.map(
               person => <div key={person.id}>{person.name} is {person.age}</div>,
