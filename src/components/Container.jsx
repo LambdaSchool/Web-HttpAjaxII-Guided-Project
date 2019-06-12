@@ -13,19 +13,19 @@ export default class Container extends React.Component {
     friend: null,
   }
 
-  inputNameRef = React.createRef();
+  idToGetInput = React.createRef();
 
-  inputAgeRef = React.createRef();
+  newNameInput = React.createRef();
 
-  inputIdEditRef = React.createRef();
+  newAgeInput = React.createRef();
 
-  inputNameEditRef = React.createRef();
+  idToReplaceInput = React.createRef();
 
-  inputAgeEditRef = React.createRef();
+  nameToReplaceInput = React.createRef();
 
-  inputIdRefDelete = React.createRef();
+  ageToReplaceInput = React.createRef();
 
-  inputIdRefExisting = React.createRef();
+  idToDeleteInput = React.createRef();
 
   // CRUD OPERATIONS
   getAllFriends = () => {
@@ -34,27 +34,27 @@ export default class Container extends React.Component {
   }
 
   getFriendById = () => {
-    axios.get(`${friendsApi}/${this.inputIdRefExisting.current.value}`)
+    axios.get(`${friendsApi}/${this.idToGetInput.current.value}`)
       .then(res => this.setState({ friend: res.data }));
   }
 
   postNewFriend = () => {
     axios.post(friendsApi, {
-      name: this.inputNameRef.current.value,
-      age: this.inputAgeRef.current.value,
+      name: this.newNameInput.current.value,
+      age: this.newAgeInput.current.value,
     })
       .then(this.getAllFriends);
   }
 
   deleteFriendById = () => {
-    const id = this.inputIdRefDelete.current.value;
+    const id = this.idToDeleteInput.current.value;
     axios.delete(`${friendsApi}/${id}`).then(this.getAllFriends);
   }
 
   replaceFriendById = () => {
-    const id = this.inputIdEditRef.current.value;
-    const name = this.inputNameEditRef.current.value;
-    const age = this.inputAgeEditRef.current.value;
+    const id = this.idToReplaceInput.current.value;
+    const name = this.nameToReplaceInput.current.value;
+    const age = this.ageToReplaceInput.current.value;
 
     axios.put(`${friendsApi}/${id}`, {
       name,
@@ -91,28 +91,28 @@ export default class Container extends React.Component {
         <StyledCrud>
           <h5>[GET] existing friend by id</h5>
           <Friend data={this.state.friend} />
-          id: <input type='text' ref={this.inputIdRefExisting} /><br />
+          id: <input type='text' ref={this.idToGetInput} /><br />
           <button onClick={this.getFriendById}>getFriendById</button>
         </StyledCrud>
 
         <StyledCrud>
           <h5>[POST] a new friend</h5>
-          name: <input type='text' ref={this.inputNameRef} /><br />
-          age: <input type='text' ref={this.inputAgeRef} /><br />
+          name: <input type='text' ref={this.newNameInput} /><br />
+          age: <input type='text' ref={this.newAgeInput} /><br />
           <button onClick={this.postNewFriend}>postNewFriend</button>
         </StyledCrud>
 
         <StyledCrud>
           <h5>[PUT] replace existing friend by id</h5>
-          id: <input type='text' ref={this.inputIdEditRef} /><br />
-          name: <input type='text' ref={this.inputNameEditRef} /><br />
-          age: <input type='text' ref={this.inputAgeEditRef} /><br />
+          id: <input type='text' ref={this.idToReplaceInput} /><br />
+          name: <input type='text' ref={this.nameToReplaceInput} /><br />
+          age: <input type='text' ref={this.ageToReplaceInput} /><br />
           <button onClick={this.replaceFriendById}>replaceFriendById</button>
         </StyledCrud>
 
         <StyledCrud>
           <h5>[DELETE] existing friend by id</h5>
-          id: <input type='text' ref={this.inputIdRefDelete} /><br />
+          id: <input type='text' ref={this.idToDeleteInput} /><br />
           <button onClick={this.deleteFriendById}>delete friend</button>
         </StyledCrud>
       </StyledContainer>
