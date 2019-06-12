@@ -2,24 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { StyledContainer, StyledCrud } from './styled/styled';
 
-
-const personURL = 'http://gabe.mockable.io/person/';
-
-const randomBool = () => (
-  !(Math.floor(Math.random() * 2))
-);
-
-const doFakeAjax = () => { // BROKEN!!! WHY??
-  new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (randomBool()) {
-        resolve({ id: '1', name: 'Samar', age: 25 });
-      } else {
-        reject({ message: 'No joy.' });
-      }
-    }, 1000);
-  });
-};
+const personURL = 'http://localhost/api/friends';
 
 export default class Container extends React.Component {
   state = {
@@ -30,72 +13,31 @@ export default class Container extends React.Component {
   }
 
   inputNameRef = React.createRef();
-
   inputAgeRef = React.createRef();
-
   inputNameEditRef = React.createRef();
-
   inputAgeEditRef = React.createRef();
-
   inputIdRef = React.createRef();
 
-  // fakeFetchPerson = () => {
-  //   this.startSpinner();
-  //   this.resetError();
-
-  //   doFakeAjax(personURL)
-  //     .then(this.setPerson)
-  //     .catch(this.setError);
-  // }
-
   // CRUD OPERATIONS
-  fetchPerson = () => { // BROKEN!!! WHY??
-    this.resetError();
-    this.startSpinner();
-
-    axios.get(personURL)
-      .then(this.setPerson)
-      .catch(this.setError);
-  }
-
-  fetchTwoPeople = () => {
+  getAllFriends = (id) => {
 
   }
 
-  postNewPerson = () => {
+  getFriendById = () => {
 
   }
 
-  putPerson = () => {
+  postNewFriend = () => {
 
   }
 
-  deletePerson = id => {
+  deleteFriendById = () => {
 
   }
 
-  // STATE MANAGEMENT
-  setPeople = people => {
+  replaceFriendById = id => {
 
   }
-
-  setPerson = person => {
-    this.stopSpinner();
-    this.setState({ person });
-  }
-
-  setError = error => {
-    this.stopSpinner();
-    this.setState({ error });
-  }
-
-  resetError = () => {
-    this.setState({ error: null });
-  }
-
-  startSpinner = () => this.setState({ loading: true })
-
-  stopSpinner = () => this.setState({ loading: false })
 
   render() {
     if (this.state.loading) {
