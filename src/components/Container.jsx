@@ -29,38 +29,23 @@ export default class Container extends React.Component {
 
   // CRUD OPERATIONS
   getAllFriends = () => {
-    axios.get(friendsApi)
-      .then(res => this.setState({ friends: res.data }));
+
   }
 
   getFriendById = () => {
-    axios.get(`${friendsApi}/${this.idToGetInput.current.value}`)
-      .then(res => this.setState({ friend: res.data }));
+
   }
 
   postNewFriend = () => {
-    axios.post(friendsApi, {
-      name: this.newNameInput.current.value,
-      age: this.newAgeInput.current.value,
-    })
-      .then(this.getAllFriends);
+
   }
 
   deleteFriendById = () => {
-    const id = this.idToDeleteInput.current.value;
-    axios.delete(`${friendsApi}/${id}`).then(this.getAllFriends);
+
   }
 
   replaceFriendById = () => {
-    const id = this.idToReplaceInput.current.value;
-    const name = this.nameToReplaceInput.current.value;
-    const age = this.ageToReplaceInput.current.value;
 
-    axios.put(`${friendsApi}/${id}`, {
-      name,
-      age,
-    })
-      .then(this.getAllFriends);
   }
 
   render() {
