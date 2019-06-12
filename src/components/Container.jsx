@@ -1,15 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import { StyledContainer, StyledCrud } from './styled/styled';
+import Friend from './Friend';
 
-const personURL = 'http://localhost/api/friends';
+const friendsApi = 'http://localhost:3000/api/friends';
 
 export default class Container extends React.Component {
   state = {
-    person: null,
+    friends: [],
+    currentFriend: null,
     error: null,
     loading: false,
-    people: [],
   }
 
   inputNameRef = React.createRef();
@@ -24,7 +25,8 @@ export default class Container extends React.Component {
 
   // CRUD OPERATIONS
   getAllFriends = () => {
-
+    axios.get(friendsApi)
+      .then(res => this.setState({ friends: res.data }));
   }
 
   getFriendById = () => {
@@ -56,7 +58,6 @@ export default class Container extends React.Component {
       return (
         <StyledContainer>
           <div>Argh! This failed rather miserably. {this.state.error.message}</div>
-          <button onClick={this.fetchPerson}>fetch person</button>
         </StyledContainer>
       );
     }
@@ -66,24 +67,9 @@ export default class Container extends React.Component {
         <StyledCrud>
           <h5>[GET] all friends</h5>
           {
-            this.state.person && (
-              <>
-                <div>Name: {this.state.person.name}</div>
-                <div>Age: {this.state.person.age}</div>
-              </>
-            )
+            this.state.friends.map(fr => <Friend data={fr} />)
           }
           <button onClick={this.getAllFriends}>getAllFriends</button>
-        </StyledCrud>
-
-        <StyledCrud>
-          <h5>[GET] random people</h5>
-          {
-            this.state.people.map(
-              person => <div key={person.id}>{person.name} is {person.age}</div>,
-            )
-          }
-          <button onClick={this.fetchTwoPeople}>fetch 2 people</button>
         </StyledCrud>
 
         <StyledCrud>
