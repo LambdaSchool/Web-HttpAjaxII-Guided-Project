@@ -8,7 +8,6 @@ const friendsApi = 'http://localhost:3000/api/friends';
 export default class Container extends React.Component {
   state = {
     friends: [],
-    currentFriend: null,
     error: null,
     loading: false,
   }
@@ -17,11 +16,15 @@ export default class Container extends React.Component {
 
   inputAgeRef = React.createRef();
 
+  inputIdEditRef = React.createRef();
+
   inputNameEditRef = React.createRef();
 
   inputAgeEditRef = React.createRef();
 
   inputIdRef = React.createRef();
+
+  inputIdRef2 = React.createRef();
 
   // CRUD OPERATIONS
   getAllFriends = () => {
@@ -73,26 +76,37 @@ export default class Container extends React.Component {
         </StyledCrud>
 
         <StyledCrud>
-          <h5>[POST] a new person</h5>
+          <h5>[GET] existing friend by id</h5>
+          id: <input type='text' ref={this.inputIdRef2} /><br />
+          <button
+            onClick={() => this.deletePerson(this.inputIdRef.current.value)}
+          >
+            delete friend
+          </button>
+        </StyledCrud>
+
+        <StyledCrud>
+          <h5>[POST] a new friend</h5>
           name: <input type='text' ref={this.inputNameRef} /><br />
           age: <input type='text' ref={this.inputAgeRef} /><br />
-          <button onClick={this.postNewPerson}>submit new person</button>
+          <button onClick={this.postNewPerson}>postNewPerson</button>
         </StyledCrud>
 
         <StyledCrud>
-          <h5>[PUT] existing person by id</h5>
+          <h5>[PUT] replace existing friend by id</h5>
+          id: <input type='text' ref={this.inputIdEditRef} /><br />
           name: <input type='text' ref={this.inputNameEditRef} /><br />
           age: <input type='text' ref={this.inputAgeEditRef} /><br />
-          <button onClick={this.putPerson}>edit person</button>
+          <button onClick={this.replaceFriendById}>replaceFriendById</button>
         </StyledCrud>
 
         <StyledCrud>
-          <h5>[DELETE] existing person by id</h5>
+          <h5>[DELETE] existing friend by id</h5>
           id: <input type='text' ref={this.inputIdRef} /><br />
           <button
             onClick={() => this.deletePerson(this.inputIdRef.current.value)}
           >
-            delete person
+            delete friend
           </button>
         </StyledCrud>
       </StyledContainer>
