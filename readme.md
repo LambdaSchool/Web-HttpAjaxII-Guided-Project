@@ -21,7 +21,7 @@ We need `node` & `npm`, as well as packages `live-server` and `eslint` installed
   * Show our `GET` in action in Chrome Devtools Network tab.
   * Show how to see different details of the request on the Network Tab.
   * Teach `promise.finally()` and clean up `setPerson` and `setError`.
-  * Teach `Promise.all()` and use it to fetch two people.
+  * Teach `Promise.all()` and use it to fetch two people. (Stretch?)
   * Implement `setPeople` so we concatenate the two people to `this.state.people`.
   * Show each new endpoint on `mockable.io`.
   * Make each new endpoint work on `Postman`.
