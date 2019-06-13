@@ -39,7 +39,7 @@ function replaceFriendById(req, res) {
   res.json(friend);
 }
 
-app.get('/api', (req, res) => res.json('mierda'));
+app.get('/api', (req, res) => res.json('test'));
 app.get('/api/friends', getAllFriends);
 app.get('/api/friends/:id', getFriendById);
 app.post('/api/friends', postNewFriend);
