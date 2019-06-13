@@ -3,7 +3,7 @@
   * Run `npm install` or `yarn install`.
   * See the package.json for scripts.
   * Run `npm test` or `yarn test`.
-  * Serve `index.html` using `live-server` or similar.
+  * Serve `index.html` using `live-server` or similar!
 
 # Requirements
 We need `node` & `npm`. VSCode's `eslint` extension is recommended. Command line commands are run inside the project folder. This guide uses npm but should work the same using yarn.
